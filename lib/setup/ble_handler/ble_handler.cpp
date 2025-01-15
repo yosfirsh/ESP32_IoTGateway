@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include <BLEDevice.h>
-#include <BLEClient.h>
+#include "BLEDevice.h"
+#include "BLEClient.h"
 #include "ble_handler/ble_handler.h"
 
 static BLEUUID serviceUUID;
@@ -71,7 +71,7 @@ boolean connectToServer() {
   // Connect to the remove BLE Server.
   pClient->connect(myDevice);  // if you pass BLEAdvertisedDevice instead of address, it will be recognized type of peer device address (public or private)
   Serial.println(" - Connected to server");
-  pClient->setMTU(517);  //set client to request maximum MTU from server (default is 23 otherwise)
+  pClient->setMTU(17);  //set client to request maximum MTU from server (default is 23 otherwise)
 
   BLERemoteService *pRemoteService = pClient->getService(serviceUUID);
   if (pRemoteService == nullptr) {

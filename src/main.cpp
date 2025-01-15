@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <BLEDevice.h>
 #include "wifi/wifi_mqtt.h"
 #include "ble_handler/ble_handler.h"
 
