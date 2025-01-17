@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <MQTT.h>
+#include <config.h>
 #include "wifi/wifi_mqtt.h"
 
 WiFiClient net;
@@ -20,10 +21,10 @@ void connect() {
   client.subscribe("ESP32TEST_Elitech/#", 1); // Subscribe menggunakan QoS 1
 }
 
-void setup_wifi_mqtt(const char *ssid, const char *password) {
+void setup_wifi_mqtt() {
   // Menghubungkan ke Wi-Fi
   Serial.println("Connecting to WiFi...");
-  WiFi.begin(ssid, password);
+  WiFi.begin(HOSTNAME_WIFI, PASS_WIFI);
 
   while (WiFi.status() != WL_CONNECTED)
   {
