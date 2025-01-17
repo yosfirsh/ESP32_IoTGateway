@@ -7,6 +7,7 @@
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("Starting Arduino BLE Client application...");
   setup_dp_baby();
 }
 

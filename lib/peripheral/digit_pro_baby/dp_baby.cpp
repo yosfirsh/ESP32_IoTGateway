@@ -80,11 +80,13 @@ boolean connectToDevice(){
 }
 
 void setup_dp_baby() {
- if (connectToDevice()){
-    Serial.println("Perangkat terhubung");
-  } else{
-    Serial.println("Perangkat tidak terhubung");
-  }
+    if (connectToDevice()){
+        Serial.println("Perangkat terhubung");
+    } else{
+        Serial.println("Perangkat tidak terhubung");
+        delay(1000);
+        setup_dp_baby();
+    }
 }
 
 void dp_baby_handle() {
