@@ -21,9 +21,9 @@ Direktori ini ditujukan untuk memahami pustaka khusus untuk lebih mudah mengatur
 |--lib
 |  |--config
 |  |  |--bluetooth
-|  |  |  |-configBT.h
-|  |  |-config.h
-|  |--peripheral
+|  |  |  |-configBT.h //Konfigurasi BLE
+|  |  |-config.h // Konfigurasi umum (wifi dan server)
+|  |--peripheral //Untuk menambahkan perangkat disini
 |  |  |--digit_pro_baby
 |  |  |  |-dp_baby.cpp
 |  |  |  |-dp_baby.h
@@ -31,6 +31,7 @@ Direktori ini ditujukan untuk memahami pustaka khusus untuk lebih mudah mengatur
 |  |  |  |-dp_ida.cpp
 |  |  |  |-dp_ida.h
 |--src
-|  |-main.cpp
+|  |-main.cpp //Program Utama
 ```
+
 

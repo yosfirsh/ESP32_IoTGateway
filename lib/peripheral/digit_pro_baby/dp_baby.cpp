@@ -10,7 +10,7 @@ static boolean connected1 = false;
 static boolean doReconnect1 = false;
 
 // Callback untuk BLE client
-class MyClientCallback : public BLEClientCallbacks {
+class MyClientCallback1 : public BLEClientCallbacks {
   void onConnect(BLEClient *pclient) {
     
   }
@@ -22,35 +22,45 @@ class MyClientCallback : public BLEClientCallbacks {
 
 // Callback untuk Notifikasi
 void notifyCallback1(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t *pData, size_t length, bool isNotify) {
-  // Serial.print("Data (HEX): ");
+  Serial.print("Data (HEX): ");
   for (size_t i = 0; i < length; i++) {
-    Serial.printf("%02X ", pData[i]);
+    Serial.printf("%02X", pData[i]);
   }
-  Serial.println();
+  Serial.println("\n");
 
     // Periksa apakah elemen pertama adalah 0x01
     if (pData[4] == 0x02) {
-        Serial.println("===== lakukan kirim =====");
+      Serial.println("===== lakukan kirim data=====");
 
+      uint16_t rawWeight = (pData[5] << 8) | pData[6]; // Byte ke-6 (MSB) dan ke-5 (LSB)
+
+      // Dekripsi dengan kunci (EE, CF)
+      uint16_t key = 0xEECF;
+      uint16_t decryptedWeight = rawWeight ^ key; // XOR dengan kunci
+
+      // Konversi ke desimal dan cetak hasil Kg
+      float weightInKg = decryptedWeight / 1000.0; //  berat dalam gram dikonversi ke kg
+      Serial.printf("Berat Kg : %.3f kg\n", weightInKg);
+    }else{
+      uint16_t rawWeight = (pData[5] << 8) | pData[6]; // Byte ke-6 (MSB) dan ke-5 (LSB)
+      Serial.printf("Hex Berat : 0x%04X\n", rawWeight);
+
+      // Dekripsi dengan kunci (EE, CF)
+      uint16_t key = 0xEECF;
+      uint16_t decryptedWeight = rawWeight ^ key; // XOR dengan kunci
+      Serial.printf("Hasil Decrypt : 0x%04X\n", decryptedWeight);
+
+      // Konversi ke desimal dan cetak hasil Kg
+      float weightInKg = decryptedWeight / 1000.0; //  berat dalam gram dikonversi ke kg
+      Serial.printf("Berat Kg : %.3f kg\n", weightInKg);
     }
-    uint16_t rawWeight = (pData[5] << 8) | pData[6]; // Byte ke-6 (MSB) dan ke-5 (LSB)
-    Serial.printf("Hex Berat : 0x%04X\n", rawWeight);
-
-    // Dekripsi dengan kunci (EE, CF)
-    uint16_t key = 0xEECF;
-    uint16_t decryptedWeight = rawWeight ^ key; // XOR dengan kunci
-    Serial.printf("Hasil Decrypt : 0x%04X\n", decryptedWeight);
-
-    // Konversi ke desimal dan cetak hasil Kg
-    float weightInKg = decryptedWeight / 1000.0; //  berat dalam gram dikonversi ke kg
-    Serial.printf("Berat Kg : %.3f kg\n", weightInKg);
 }
 
 boolean connectToDevice1(){
   if(!pClient){
     BLEDevice::init("");
     pClient = BLEDevice::createClient();
-    pClient->setClientCallbacks(new MyClientCallback());
+    pClient->setClientCallbacks(new MyClientCallback1());
   }
 
   BLEAddress deviceAddress1(mac_address1);

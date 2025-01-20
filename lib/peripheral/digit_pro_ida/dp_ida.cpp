@@ -10,7 +10,7 @@ static boolean connected2 = false;
 static boolean doReconnect2 = false;
 
 // Callback untuk BLE client
-class MyClientCallback : public BLEClientCallbacks {
+class MyClientCallback2 : public BLEClientCallbacks {
   void onConnect(BLEClient *pclient) {
     
   }
@@ -28,61 +28,79 @@ void notifyCallback2(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t 
   }
   Serial.println("\n");
 
-  if (length >= 19) {  // Karena kita ingin mengambil byte ke-15, 16, 17, dan 18
-    // Ambil byte ke-15 (index 14), ke-16 (index 15), ke-17 (index 16), dan ke-18 (index 17)
-    uint8_t byte15 = pData[14];
-    uint8_t byte16 = pData[15];
-    uint8_t byte17 = pData[16];
-    uint8_t byte18 = pData[17];
+  if (pData[19] == 0x31)
+  {
+    if (length >= 19) {  // Karena kita ingin mengambil byte ke-15, 16, 17, dan 18
+      // Ambil byte ke-15 (index 14), ke-16 (index 15), ke-17 (index 16), dan ke-18 (index 17)
+      uint8_t byte15 = pData[14];
+      uint8_t byte16 = pData[15];
+      uint8_t byte17 = pData[16];
+      uint8_t byte18 = pData[17];
 
-    // Mengonversi byte menjadi karakter ASCII (char)
-    char char15 = (char)byte15;
-    char char16 = (char)byte16;
-    char char17 = (char)byte17;
-    char char18 = (char)byte18;
+      // Mengonversi byte menjadi karakter ASCII (char)
+      char char15 = (char)byte15;
+      char char16 = (char)byte16;
+      char char17 = (char)byte17;
+      char char18 = (char)byte18;
 
-    // Gabungkan byte ke-15, 16, 17, dan 18 menjadi satu string ASCII
-    char result[5];  // Ukuran 5 untuk menyimpan 4 karakter + null terminator
-    snprintf(result, sizeof(result), "%c%c%c%c", char15, char16, char17, char18);
+      // Gabungkan byte ke-15, 16, 17, dan 18 menjadi satu string ASCII
+      char result[5];  // Ukuran 5 untuk menyimpan 4 karakter + null terminator
+      snprintf(result, sizeof(result), "%c%c%c%c", char15, char16, char17, char18);
 
-    // Cetak hasil string ASCII
-    Serial.print("String ASCII dari byte 15-18: ");
-    Serial.println(result);
+      // Konversi string menjadi nilai hex (misalnya, misalkan string "025D" jadi hex 0x025D)
+      unsigned long hexValue = strtol(result, NULL, 16);
 
-    // Konversi string menjadi nilai hex (misalnya, misalkan string "025D" jadi hex 0x025D)
-    unsigned long hexValue = strtol(result, NULL, 16);
+      // Ubah nilai hex menjadi desimal
+      long decimalValue = (long)hexValue;
 
-    // Cetak hasil dalam format HEX
-    Serial.print("Nilai Hexadecimal: ");
-    Serial.printf("%lX\n", hexValue);
+      // Cetak hasil dalam Kg
+      Serial.printf("===== lakukan kirim Data =====\n");
+      Serial.printf("Berat Anak: %.2f kg\n", decimalValue / 100.0);
+    }
+  }else{
+    if (length >= 19) {  // Karena kita ingin mengambil byte ke-15, 16, 17, dan 18
+      // Ambil byte ke-15 (index 14), ke-16 (index 15), ke-17 (index 16), dan ke-18 (index 17)
+      uint8_t byte15 = pData[14];
+      uint8_t byte16 = pData[15];
+      uint8_t byte17 = pData[16];
+      uint8_t byte18 = pData[17];
 
-    // Ubah nilai hex menjadi desimal
-    long decimalValue = (long)hexValue;
+      // Mengonversi byte menjadi karakter ASCII (char)
+      char char15 = (char)byte15;
+      char char16 = (char)byte16;
+      char char17 = (char)byte17;
+      char char18 = (char)byte18;
 
-    // Cetak hasil dalam format Desimal
-    Serial.print("Nilai Desimal: ");
-    Serial.println(decimalValue);
+      // Gabungkan byte ke-15, 16, 17, dan 18 menjadi satu string ASCII
+      char result[5];  // Ukuran 5 untuk menyimpan 4 karakter + null terminator
+      snprintf(result, sizeof(result), "%c%c%c%c", char15, char16, char17, char18);
+
+      // Cetak hasil string ASCII
+      Serial.print("String ASCII dari byte 15-18: ");
+      Serial.println(result);
+
+      // Konversi string menjadi nilai hex (misalnya, misalkan string "025D" jadi hex 0x025D)
+      unsigned long hexValue = strtol(result, NULL, 16);
+
+      // Cetak hasil dalam format HEX
+      Serial.print("Nilai Hexadecimal: ");
+      Serial.printf("%lX\n", hexValue);
+
+      // Ubah nilai hex menjadi desimal
+      long decimalValue = (long)hexValue;
+
+      // Cetak hasil dalam Kg
+      Serial.printf("Berat Anak: %.2f kg\n", decimalValue / 100.0);
+    }
   }
-
-    // // Gabungkan byte ke-15 dan ke-16 menjadi satu 2-byte
-    // uint16_t combined1 = (byte15 << 8) | byte16;
-
-    // // Gabungkan byte ke-17 dan ke-18 menjadi satu 2-byte
-    // uint16_t combined2 = (byte17 << 8) | byte18;
-
-    // // Cetak hasil penggabungan
-    // Serial.print("Gabungan byte 15 & 16 (2-byte): ");
-    // Serial.printf("%04X ", combined1);
-    // Serial.print("Gabungan byte 17 & 18 (2-byte): ");
-    // Serial.printf("%04X\n", combined2);
-
+  
 }
 
 boolean connectToDevice2(){
   if(!pClient){
     BLEDevice::init("");
     pClient = BLEDevice::createClient();
-    pClient->setClientCallbacks(new MyClientCallback());
+    pClient->setClientCallbacks(new MyClientCallback2());
   }
 
   BLEAddress deviceAddress2(mac_address2);
