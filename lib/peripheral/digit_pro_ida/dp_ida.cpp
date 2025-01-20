@@ -54,10 +54,10 @@ void notifyCallback2(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t 
       long decimalValue = (long)hexValue;
 
       // Cetak hasil dalam Kg
-      Serial.printf("===== lakukan kirim Data =====\n");
+      Serial.printf("===== lakukan kirim Data IDA=====\n");
       Serial.printf("Berat Anak: %.2f kg\n", decimalValue / 100.0);
     }
-    
+
   }else{
     if (length >= 19) {  // Karena kita ingin mengambil byte ke-15, 16, 17, dan 18
       // Ambil byte ke-15 (index 14), ke-16 (index 15), ke-17 (index 16), dan ke-18 (index 17)

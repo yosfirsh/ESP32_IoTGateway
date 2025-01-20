@@ -30,7 +30,7 @@ void notifyCallback1(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t 
 
     // Periksa apakah elemen pertama adalah 0x01
     if (pData[4] == 0x02) {
-      Serial.println("===== lakukan kirim data=====");
+      Serial.println("===== lakukan kirim data BABY=====");
 
       uint16_t rawWeight = (pData[5] << 8) | pData[6]; // Byte ke-6 (MSB) dan ke-5 (LSB)
 
