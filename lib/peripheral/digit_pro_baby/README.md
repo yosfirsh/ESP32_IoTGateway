@@ -1,4 +1,4 @@
-# Program BLE Client untuk Membaca Berat Badan (DP Baby)
+# Dokumentasi Program
 
 Program ini dirancang untuk menghubungkan perangkat ESP32 dengan perangkat BLE (Bluetooth Low Energy) dan membaca data berat badan dari perangkat tersebut. Data berat badan yang diterima melalui BLE akan didekripsi dan dikonversi menjadi berat dalam kilogram.
 
@@ -58,4 +58,3 @@ Data (HEX): A700040501EC5BE8B4ED7A
 - **Data Tidak Terbaca**:
   - Pastikan perangkat BLE mengirimkan data sesuai format yang diharapkan.
   - Pastikan notifikasi pada karakteristik BLE telah diaktifkan dengan benar.
-
