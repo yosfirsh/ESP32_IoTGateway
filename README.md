@@ -1,5 +1,36 @@
-# ESP32_IoTGateway
 
-## _DOKUMENTASI PROGRAM IOT GATEWAY DENGAN ESP32_
+# Dokumentasi IoT Gateway
 
-Program ini dibangun dengan menggunakan Arduino Framework dan memanfaatkan pustaka BLEDevice untuk komunikasi BLE serta protokol MQTT untuk pengiriman data ke cloud.
+Halaman ini akan membantumu untuk memahami program IoT Gateway menggunakan ESP32 dengan framework Arduino
+
+
+
+
+# IoT Gateway
+
+IoT gateway adalah perangkat atau sistem untuk mengelola komunikasi data antara perangkat kecil yang tidak dapat terhubung langsung ke internet dan jaringan yang lebih besar sehingga memungkinkan perangkat kecil untuk berfungsi secara efektif dalam ekosistem IoT
+
+
+
+
+## Direktori
+
+Direktori ini ditujukan untuk memahami pustaka khusus untuk lebih mudah mengatur dan memahami struktur program
+
+```
+|--lib
+|  |--config
+|  |  |--bluetooth
+|  |  |  |-configBT.h
+|  |  |-config.h
+|  |--peripheral
+|  |  |--digit_pro_baby
+|  |  |  |-dp_baby.cpp
+|  |  |  |-dp_baby.h
+|  |  |--digit_pro_ida
+|  |  |  |-dp_ida.cpp
+|  |  |  |-dp_ida.h
+|--src
+|  |-main.cpp
+```
+
